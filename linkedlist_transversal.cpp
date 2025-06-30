@@ -34,7 +34,7 @@ void search(Node* &head){
 
     int n, a = 0;
 
-    cout << "\nEnter the number you want to search: ";
+    cout << "\nEnter the number: ";
     cin >> n;
 
     Node* temp = head;
