@@ -1,203 +1,244 @@
 #include<iostream>
+#include<string>
 using namespace std;
 
 class Node{
-  private:
-    int n;
-    Node* next;
-  public:
 
-void insertdata(Node* &head, int n){
+    private:
 
-       Node* newhead = new Node();
-       
-        newhead->n = n;
-        newhead->next = NULL;
+        string name;
+        int age;
+        Node* next;
+        Node* prev;
 
-       if(head == NULL){
-            head = newhead;
-       }
-       else{
+    public:
+        
+        void insertdata(Node* &head, string name, int age){
+             
+            Node* newhead = new Node();
             
-        Node* temp = head; 
+            newhead->name = name;
+            newhead->age = age;
             
-            while(temp->next != NULL){
+            if(head == NULL)
+                head =  newhead;
+            else{
+
+                Node* temp = head;
+
+                while(temp->next != NULL)
+                   temp = temp->next;
+
+                newhead->prev = temp;
+                temp->next = newhead;
+
+            }
+        }
+    
+        void display_next(Node* &head){
+            
+            int a = 0;
+            Node* temp = head;
+
+            cout << "\nForword\n";
+
+            while(temp != NULL){
+                
+                cout << "\n<---------------- " << ++a << " ----------------->";
+                cout << "\nThe name is: " << temp->name;
+                cout << "\nThe age is: " << temp->age << endl;
+
                 temp = temp->next;
             }
-            temp->next = newhead;
-       }
-}
+        }
 
-// search perticular value
+        void display_prev(Node* &head){
+            
+            int a = 0;
+            Node* temp = head;
+            
+            while(temp->next !=NULL)  temp = temp->next;
 
-void search(Node* &head){
+            cout << "\nReverse\n";
 
-    int n, a = 0;
+            while(temp != NULL){
+                
+                cout << "\n<---------------- " << ++a << " ----------------->";
+                cout << "\nThe name is: " << temp->name;
+                cout << "\nThe age is: " << temp->age << endl;
 
-    cout << "\nEnter the number: ";
-    cin >> n;
+                temp = temp->prev;
+            }
+        }
 
-    Node* temp = head;
-  
-    while(temp != NULL){
-        a++;
+        void replace_node(Node* &head, Node* &newhead){
+                
+            string name;
 
-        if(temp->n == n){
-            cout << "The number " << temp->n << " at " << a << " place. " << endl;
-            return;
+                cout << "Enter the name to find node: ";
+                cin >> name;
+
+            Node* temp = head;
+                while(temp != NULL){
+
+                        if(temp->name == name){
+
+                            Node* newnode = new Node;
+
+                            cout << "Enter the name: ";
+                            cin >> newnode->name;
+                            cout << "Enter the age: ";
+                            cin >> newnode->age;
+
+                            newnode->next = temp->next;
+                            newnode->prev = temp->prev;
+
+                            if (temp->prev != NULL)
+                                temp->prev->next = newnode;
+                            else
+                                head = newnode;  // temp was head
+
+                            // Link next node
+                            if (temp->next != NULL)
+                                temp->next->prev = newnode;
+
+                            delete temp;
+                                cout << "\nNode replaced successfully.\n";
+                            return;
+                        }
+                    temp = temp->next;
+                }
+
+            cout << "Node not found!\n";
         }
         
-        temp = temp->next;
-    }
-        cout << "Not found!";
-}
+        void oldest_person(Node* head){
 
-//find length
+            int max, a = 0;
 
-void length(Node* &head){
-      int a = 0;
-      Node* temp = head;
+            max = head->age;
 
-      while(temp != NULL){
-          a++;
-          temp = temp->next;
-      }
-      cout << "\nThe length is: " << a << endl;
-}
-
-//update head
-
- void change_head(Node* &head, Node* &newhead){
-    int n;
-
-    cout << "\nEnter the value: ";
-    cin >> newhead->n;
-
-    newhead->next = head->next;
-    
-    cout << "\nFirst place value changed from " << head->n << " to " << newhead->n << endl;
-
-    while(head != NULL){
-        Node* temp = head;
-        head = head->next;
-        delete temp; 
-    }
-} 
-
-// delete list
-
-void del(Node* &head){
-    int n, a = 0;
-
-        cout << "\nEnter the number to remove list: ";
-        cin >> n;
-
-        Node* temp = head;
-        Node* perv = NULL;
-
-        while(temp != NULL){
-            a++;
-            if(temp->n == n){
-                
-                if(temp == head){
-                    head = head->next;
-                    delete temp;
-                }
-                else{
-                    perv->next = temp->next;
-                    delete temp;
-                }
-
-                cout << a << " place Delete successfully!";
-                return;
-            }
-            perv = temp;
+            Node* temp = head;
+            Node* t = head;
             temp = temp->next;
 
+            while(temp != NULL){
+
+                if(max < temp->age)  max = temp->age;
+                temp = temp->next;
+            }
+            
+                cout << "\nThe oldest person's age is: " << max;
+            while(t != NULL){
+
+                if(max == t->age){
+                    cout << "\nHis name is: " << t->name;
+                    break;
+                }
+
+                t = t->next;
+            } 
+
         }
-}
 
-// display
-void display(Node* &head){
-       Node* temp = head;
-       while(temp != NULL){
-       cout << "\nThe value is: " << temp->n;
-       temp = temp->next;
-       } 
-}
+        void younest_person(Node* head){
 
-//list
-int list(){
-    int choice;
+            int min, a = 0;
 
-    while(true){
-       cout << "\n----------Chose from the following----------\n";
-       cout << "\n1-Find length";
-       cout << "\n2-Find value";
-       cout << "\n3-Change head";
-       cout << "\n4-Delete List";
-       cout << "\n5-View List";
-       cout << "\n6-Exit";
-       cout << "\n\nEnter the choice: ";
-       cin >> choice;
-       
-       if(choice > 0 && choice < 7) break;
-       else cout << "\nInvalid number!";
-    }
+            min = head->age;
 
-    return choice;
-}
+            Node* temp = head;
+            Node* t = head;
+            temp = temp->next;
 
+            while(temp != NULL){
+
+                if(min > temp->age)  min = temp->age;
+                temp = temp->next;
+            }
+            
+                cout << "\nThe youngest person's age is: " << min;
+            while(t != NULL){
+
+                if(min == t->age){
+                    cout << "\nName: " << t->name;
+                    break;
+                }
+                  
+                  t = t->next;
+            } 
+
+        }
+
+        void list(){
+            cout << "\n-------------Chose from following-------------\n";
+            cout << "\n1-Change node";
+            cout << "\n2-Display forword";
+            cout << "\n3-Display backword";
+            cout << "\n4-Find oldest person";
+            cout << "\n5-Find younest person";
+            cout << "\n6-Exit";
+            cout << "\n\nEnter you choice: ";
+        }
 };
-
 int main(){
-    int n, a = 0;
+
+    string name;
+    int age, a = 0, choice;
     Node* head = NULL;
     Node* newhead = new Node();
-    
-    cout << "\nPress -1 to stop!";
-    while(true){
-         cout << "\n" << ++a << "-Enter the value: ";
-         cin >> n;
-         if(n == -1) break;
 
-         head->insertdata(head, n);
+    cout << "\nPress -1 in age to stop!\n";
+
+    while(true){ 
+
+            cout << "\n---------------------/-----------------\n";
+            cout << ++a << "-Enter your age: ";
+            cin >>age;  
+            if( age == -1) break;
+
+            cout << "Enter your name: ";
+            cin >>name;  
+            
+           head->insertdata(head, name, age);
     }
-    
-        a = 0;
-        int choice = 0;
-        
-do{
-    choice = head->list();
 
+do{
+    while(true){
+
+        head->list();
+        
+        cin >> choice;
+        if(choice > 0 && choice < 7) break;
+        else cout << "\nInvalid number\n";
+    }
+
+        a = 0;
     switch(choice){
+
         case 1:
-            head->length(head);
+
+           head->replace_node(head, newhead);
+
         break;
+
         case 2:
-            head->search(head);
+                head->display_next(head);
         break;
+
         case 3:
-            head->change_head(head, newhead);
-            a++;
+                head->display_prev(head);
         break;
+
         case 4:
-            if(a > 0)
-               head->del(newhead);
-            else
-               head->del(head);
+                head->oldest_person(head);
         break;
+
         case 5:
-            if(a > 0)
-               head->display(newhead);
-            else
-               head->display(head);
-        break;
-        case 6:
+                head->younest_person(head);
         break;
         default:
-            cout << "Invalid Number!";
+            cout << "\nInvalid number\n";
     }
 }while(choice != 6);
-    return 0;
 }
