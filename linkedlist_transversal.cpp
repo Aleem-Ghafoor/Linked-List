@@ -111,14 +111,73 @@ class Node{
 
             cout << "Node not found!\n";
         }
+        
+        void oldest_person(Node* head){
 
+            int max, a = 0;
+
+            max = head->age;
+
+            Node* temp = head;
+            Node* t = head;
+            temp = temp->next;
+
+            while(temp != NULL){
+
+                if(max < temp->age)  max = temp->age;
+                temp = temp->next;
+            }
+            
+                cout << "\nThe oldest person's age is: " << max;
+            while(t != NULL){
+
+                if(max == t->age){
+                    cout << "\nHis name is: " << t->name;
+                    break;
+                }
+
+                t = t->next;
+            } 
+
+        }
+
+        void younest_person(Node* head){
+
+            int min, a = 0;
+
+            min = head->age;
+
+            Node* temp = head;
+            Node* t = head;
+            temp = temp->next;
+
+            while(temp != NULL){
+
+                if(min > temp->age)  min = temp->age;
+                temp = temp->next;
+            }
+            
+                cout << "\nThe youngest person's age is: " << min;
+            while(t != NULL){
+
+                if(min == t->age){
+                    cout << "\nName: " << t->name;
+                    break;
+                }
+                  
+                  t = t->next;
+            } 
+
+        }
 
         void list(){
             cout << "\n-------------Chose from following-------------\n";
             cout << "\n1-Change node";
             cout << "\n2-Display forword";
             cout << "\n3-Display backword";
-            cout << "\n4-Exit";
+            cout << "\n4-Find oldest person";
+            cout << "\n5-Find younest person";
+            cout << "\n6-Exit";
             cout << "\n\nEnter you choice: ";
         }
 };
@@ -150,7 +209,7 @@ do{
         head->list();
         
         cin >> choice;
-        if(choice > 0 && choice < 6) break;
+        if(choice > 0 && choice < 7) break;
         else cout << "\nInvalid number\n";
     }
 
@@ -172,10 +231,14 @@ do{
         break;
 
         case 4:
+                head->oldest_person(head);
         break;
 
+        case 5:
+                head->younest_person(head);
+        break;
         default:
             cout << "\nInvalid number\n";
     }
-}while(choice != 5);
+}while(choice != 6);
 }
