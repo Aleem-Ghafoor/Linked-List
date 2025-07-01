@@ -12,7 +12,8 @@ class Node{
         Node* prev;
 
     public:
-        
+
+// insert data        
         void insertdata(Node* &head, string name, int age){
              
             Node* newhead = new Node();
@@ -34,43 +35,8 @@ class Node{
 
             }
         }
-    
-        void display_next(Node* &head){
-            
-            int a = 0;
-            Node* temp = head;
 
-            cout << "\nForword\n";
-
-            while(temp != NULL){
-                
-                cout << "\n<---------------- " << ++a << " ----------------->";
-                cout << "\nThe name is: " << temp->name;
-                cout << "\nThe age is: " << temp->age << endl;
-
-                temp = temp->next;
-            }
-        }
-
-        void display_prev(Node* &head){
-            
-            int a = 0;
-            Node* temp = head;
-            
-            while(temp->next !=NULL)  temp = temp->next;
-
-            cout << "\nReverse\n";
-
-            while(temp != NULL){
-                
-                cout << "\n<---------------- " << ++a << " ----------------->";
-                cout << "\nThe name is: " << temp->name;
-                cout << "\nThe age is: " << temp->age << endl;
-
-                temp = temp->prev;
-            }
-        }
-
+//Replace the node
         void replace_node(Node* &head, Node* &newhead){
                 
             string name;
@@ -96,9 +62,8 @@ class Node{
                             if (temp->prev != NULL)
                                 temp->prev->next = newnode;
                             else
-                                head = newnode;  // temp was head
+                                head = newnode; 
 
-                            // Link next node
                             if (temp->next != NULL)
                                 temp->next->prev = newnode;
 
@@ -112,6 +77,7 @@ class Node{
             cout << "Node not found!\n";
         }
         
+//find the oldest person        
         void oldest_person(Node* head){
 
             int max, a = 0;
@@ -124,23 +90,20 @@ class Node{
 
             while(temp != NULL){
 
-                if(max < temp->age)  max = temp->age;
-                temp = temp->next;
-            }
-            
-                cout << "\nThe oldest person's age is: " << max;
-            while(t != NULL){
+                if(max < temp->age){
 
-                if(max == t->age){
-                    cout << "\nHis name is: " << t->name;
-                    break;
+                    max = temp->age;
+                    t = temp;
                 }
 
-                t = t->next;
-            } 
+                temp = temp->next;
+            }
+            a++;
 
+            display_next(t, a);
         }
 
+//find the youngest person        
         void younest_person(Node* head){
 
             int min, a = 0;
@@ -153,21 +116,59 @@ class Node{
 
             while(temp != NULL){
 
-                if(min > temp->age)  min = temp->age;
+                if(min > temp->age){
+
+                    min = temp->age;
+                    t = temp;
+                }
+                temp = temp->next;
+            } 
+            a++;
+
+            display_next(t, a);
+
+        }
+
+// display forword        
+        void display_next(Node* &head, int a){
+
+          if(a > 0){
+               cout << "\nThe name is: " << head->name;
+               cout << "\nThe age is: " << head->age << endl;
+          }  
+          else{
+            Node* temp = head;
+
+            cout << "\nForword\n";
+
+            while(temp != NULL){
+                
+                cout << "\n<---------------- " << ++a << " ----------------->";
+                cout << "\nThe name is: " << temp->name;
+                cout << "\nThe age is: " << temp->age << endl;
+
                 temp = temp->next;
             }
+           }
+        }
+
+//display previously        
+        void display_prev(Node* &head, int a){
             
-                cout << "\nThe youngest person's age is: " << min;
-            while(t != NULL){
+            Node* temp = head;
+            
+            while(temp->next !=NULL)  temp = temp->next;
 
-                if(min == t->age){
-                    cout << "\nName: " << t->name;
-                    break;
-                }
-                  
-                  t = t->next;
-            } 
+            cout << "\nReverse\n";
 
+            while(temp != NULL){
+                
+                cout << "\n<---------------- " << ++a << " ----------------->";
+                cout << "\nThe name is: " << temp->name;
+                cout << "\nThe age is: " << temp->age << endl;
+
+                temp = temp->prev;
+            }
         }
 
         void list(){
@@ -223,11 +224,13 @@ do{
         break;
 
         case 2:
-                head->display_next(head);
+                a = 0;
+                head->display_next(head, a);
         break;
 
         case 3:
-                head->display_prev(head);
+                a = 0;
+                head->display_prev(head, a);
         break;
 
         case 4:
@@ -237,6 +240,10 @@ do{
         case 5:
                 head->younest_person(head);
         break;
+
+        case 6:
+        break;
+        
         default:
             cout << "\nInvalid number\n";
     }
