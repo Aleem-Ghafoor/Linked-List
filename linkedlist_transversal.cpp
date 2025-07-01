@@ -84,6 +84,34 @@ void length(Node* &head){
     }
 } 
 
+//arrang in order
+
+void ordered_form(Node* &head){
+
+    Node* temp;
+    Node* t = head;
+    Node* te = head;
+    while(t != NULL){
+            temp = t->next;
+
+        while(temp != NULL){
+
+            if(t->n > temp->n){
+                
+                int copy = t->n;
+                t->n = temp->n;
+                temp->n = copy;
+
+            }
+                temp = temp->next;
+        }
+
+        t = t->next;
+    }
+
+    display(head);
+}
+
 // delete list
 
 void del(Node* &head){
@@ -137,11 +165,12 @@ int list(){
        cout << "\n3-Change head";
        cout << "\n4-Delete List";
        cout << "\n5-View List";
-       cout << "\n6-Exit";
+       cout << "\n6-Place in ordered form";
+       cout << "\n7-Exit";
        cout << "\n\nEnter the choice: ";
        cin >> choice;
        
-       if(choice > 0 && choice < 7) break;
+       if(choice > 0 && choice < 8) break;
        else cout << "\nInvalid number!";
     }
 
@@ -194,10 +223,16 @@ do{
                head->display(head);
         break;
         case 6:
+            if(a > 0)
+                head->ordered_form(newhead);
+            else 
+                head->ordered_form(head);
+        break;
+        case 7:
         break;
         default:
             cout << "Invalid Number!";
     }
-}while(choice != 6);
+}while(choice != 7);
     return 0;
 }
