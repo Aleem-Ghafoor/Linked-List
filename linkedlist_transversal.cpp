@@ -34,7 +34,7 @@ void search(Node* &head){
 
     int n, a = 0;
 
-    cout << "\nEnter the number: ";
+    cout << "\nEnter the number to find: ";
     cin >> n;
 
     Node* temp = head;
@@ -70,12 +70,12 @@ void length(Node* &head){
  void change_head(Node* &head, Node* &newhead){
     int n;
 
-    cout << "\nEnter the value: ";
+    cout << "\nEnter the digit to change head: ";
     cin >> newhead->n;
 
     newhead->next = head->next;
     
-    cout << "\nFirst place value changed from " << head->n << " to " << newhead->n << endl;
+    cout << "\nFirst place digit changed from " << head->n << " to " << newhead->n << endl;
 
     while(head != NULL){
         Node* temp = head;
@@ -117,7 +117,7 @@ void ordered_form(Node* &head){
 void del(Node* &head){
     int n, a = 0;
 
-        cout << "\nEnter the number to remove list: ";
+        cout << "\nEnter the number to remove any node: ";
         cin >> n;
 
         Node* temp = head;
@@ -127,7 +127,7 @@ void del(Node* &head){
             a++;
             if(temp->n == n){
                 
-                if(temp == head){
+                if(temp->n == head->n){
                     head = head->next;
                     delete temp;
                 }
@@ -160,12 +160,12 @@ int list(){
 
     while(true){
        cout << "\n----------Chose from the following----------\n";
-       cout << "\n1-Find length";
-       cout << "\n2-Find value";
-       cout << "\n3-Change head";
-       cout << "\n4-Delete List";
-       cout << "\n5-View List";
-       cout << "\n6-Place in ordered form";
+       cout << "\n1-Find length of list";
+       cout << "\n2-Find any value entered";
+       cout << "\n3-Change the first node";
+       cout << "\n4-Delete any node";
+       cout << "\n5-View the whole List";
+       cout << "\n6-Place the numbers in ordered form";
        cout << "\n7-Exit";
        cout << "\n\nEnter the choice: ";
        cin >> choice;
@@ -186,7 +186,7 @@ int main(){
     
     cout << "\nPress -1 to stop!";
     while(true){
-         cout << "\n" << ++a << "-Enter the value: ";
+         cout << "\n" << ++a << "-Enter the element of linked list: ";
          cin >> n;
          if(n == -1) break;
 
