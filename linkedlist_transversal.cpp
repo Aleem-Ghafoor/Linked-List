@@ -13,24 +13,23 @@ class Node{
 
     public:
 
+    Node* getnext() { return next; } 
 // insert data        
-        void insertdata(Node* &head, string name, int age){
+        void insertdata(Node* &head, string name, int age, Node* &temp, Node* newhead){
              
-            Node* newhead = new Node();
+            
+            
             
             newhead->name = name;
             newhead->age = age;
             
-            if(head == NULL)
+            if(head == NULL){
                 head =  newhead;
+            }
             else{
 
-                Node* temp = head;
-
-                while(temp->next != NULL)
-                   temp = temp->next;
-
                 newhead->prev = temp;
+
                 temp->next = newhead;
 
             }
@@ -100,7 +99,7 @@ class Node{
             }
             a++;
 
-            display_next(t, a);
+            display_forward(t, a);
         }
 
 //find the youngest person        
@@ -125,12 +124,12 @@ class Node{
             } 
             a++;
 
-            display_next(t, a);
+            display_forward(t, a);
 
         }
 
 // display forword        
-        void display_next(Node* &head, int a){
+        void display_forward(Node* &head, int a){
 
           if(a > 0){
                cout << "\nThe name is: " << head->name;
@@ -153,7 +152,7 @@ class Node{
         }
 
 //display previously        
-        void display_prev(Node* &head, int a){
+        void display_previously(Node* &head, int a){
             
             Node* temp = head;
             
@@ -188,10 +187,13 @@ int main(){
     int age, a = 0, choice;
     Node* head = NULL;
     Node* newhead = new Node();
+    Node* temp = NULL;
 
     cout << "\nPress -1 in age to stop!\n";
 
     while(true){ 
+
+            Node* newhead = new Node();
 
             cout << "\n---------------------/-----------------\n";
             cout << ++a << "-Enter your age: ";
@@ -199,9 +201,10 @@ int main(){
             if( age == -1) break;
 
             cout << "Enter your name: ";
-            cin >>name;  
+            cin >>name; 
             
-           head->insertdata(head, name, age);
+           head->insertdata(head, name, age, temp, newhead);
+           temp = newhead;
     }
 
 do{
@@ -225,12 +228,12 @@ do{
 
         case 2:
                 a = 0;
-                head->display_next(head, a);
+                head->display_forward(head, a);
         break;
 
         case 3:
                 a = 0;
-                head->display_prev(head, a);
+                head->display_previously(head, a);
         break;
 
         case 4:
