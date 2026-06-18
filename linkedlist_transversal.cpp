@@ -181,6 +181,7 @@ int list(){
 
 int main(){
     int n, a = 0;
+    Node list;
     Node* head = NULL;
     Node* newhead = new Node();
     
@@ -190,43 +191,43 @@ int main(){
          cin >> n;
          if(n == -1) break;
 
-         head->insertdata(head, n);
+         list.insertdata(head, n);
     }
     
         a = 0;
         int choice = 0;
         
 do{
-    choice = head->list();
+    choice = list.list();
 
     switch(choice){
         case 1:
-            head->length(head);
+            list.length(head);
         break;
         case 2:
-            head->search(head);
+            list.search(head);
         break;
         case 3:
-            head->change_head(head, newhead);
+            list.change_head(head, newhead);
             a++;
         break;
         case 4:
             if(a > 0)
-               head->del(newhead);
+               list.del(newhead);
             else
-               head->del(head);
+               list.del(head);
         break;
         case 5:
             if(a > 0)
-               head->display(newhead);
+               list.display(newhead);
             else
-               head->display(head);
+               list.display(head);
         break;
         case 6:
             if(a > 0)
-                head->ordered_form(newhead);
+                list.ordered_form(newhead);
             else 
-                head->ordered_form(head);
+                list.ordered_form(head);
         break;
         case 7:
         break;
